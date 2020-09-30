@@ -1,3 +1,4 @@
 pyfiglet==0.8.post1
 sty==1.0.0b12
 cryptography==2.8
+idna==2.8

@@ -1,5 +1,4 @@
 # _encrypt file_ 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/210d4a617a3d4411bab1d3618cafca89)](https://app.codacy.com/app/brunocampos01/becoming-a-python-expert?utm_source=github.com&utm_medium=referral&utm_content=brunocampos01/becoming-a-python-expert&utm_campaign=Badge_Grade_Dashboard)
 ![License](https://img.shields.io/badge/Code%20License-MIT-red.svg)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-381/)
 
@@ -23,28 +22,11 @@ Encrypting ...
 Encrypted file at tests/plain_text.txt.enc
 Execution time: 0.01 seconds                        
 ```
-O _encrypt file_ is a **CLI** for encrypting and decrypting files.
+The _encrypt file_ is a **CLI** for encrypting and decrypting files.
 
 ## Why should I use the _encrypt file_?
 - **No Code**: When there is no need to code something you can simply use _encrypt file_.
-- **Abstraction of cryptographic algorithms**: you don't need to know what goes on behind the scenes in _encrypt file_ (but if you want, just see it on github)
-
-## Usage
-- :lock: Encrypt :lock:
-```
-easycrypt \
-          --func encrypt
-          --file plain_text.txt
-          --password 123456
-```
-
-- :unlock: Decrypt :unlock:
-```
-easycrypt \
-          --func decrypt
-          --file plain_text.txt.enc
-          --password 123456
-```
+- **Abstraction of cryptographic algorithms**: you don't need to know what goes on behind the scenes in _encrypt file_ (but if you want, just see it on github).
 
 ## Requirements
 | Requisite      | Version  |
@@ -59,8 +41,25 @@ easycrypt \
 pip install _encrypt file_
 ```
 
+## Usage
+- :lock: Encrypt :lock:
+```
+encrypt-file \
+          --func encrypt \
+          --file plain_text.txt \
+          --password 123456
+```
+
+- :unlock: Decrypt :unlock:
+```
+encrypt-file \
+          --func decrypt \
+          --file plain_text.txt.enc \
+          --password 123456
+```
+
 ## What is the security level?
-- Even using low-quality passwords, _encrypt file_ tries to make things as secure as possible because it is implemented using ** PBKDF2 ** key deviation with SHA256 hash, a 16-bit random salt and 10,000 rounds.
+- Even using low-quality passwords, _encrypt file_ tries to make things as secure as possible because it is implemented using **PBKDF2** key deviation with SHA256 hash, a 16-bit random salt and 10,000 rounds.
 
 ---
 

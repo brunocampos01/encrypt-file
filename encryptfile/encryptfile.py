@@ -84,14 +84,6 @@ def main():
     password = args.password
     file_path = args.file
 
-    print(f.renderText('encrypt file'))
-    print('Encrypt or decrypt files with ONLY ONE COMAND '
-          '\n----------------------------------------------------------------------')
-    print('PARAMETERS')
-    print(f'func:\t\t{func}')
-    print(f'password:\t{password}')
-    print(f'file_path:\t{file_path}')
-    print()
 
     if 'encrypt' in func:
         file = open_file(file_path=file_path)

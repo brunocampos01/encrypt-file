@@ -19,15 +19,18 @@ with open(os.path.join(HERE, 'README.md')) as f:
     README = f.read()
 
 setup(name='encrypt-file',
-      version='0.1',
+      version='1.0',
       packages=find_packages(),
       install_requires=requirements,
+            entry_points={
+          'console_scripts': ['encrypt-file=encryptfile.__main__:main']
+      },
       # metadata to display on PyPI
       description='CLI to encrypt or decrypt files with ONLY ONE COMAND',
       long_description=README,
       long_description_content_type='text/markdown',
       keywords='encrypt, decrypt, cli, easy, file',
-      url='https://github.com/brunocampos01/encrypt_file',  # project home page
+      url='https://github.com/brunocampos01/encrypt-file',  # project home page
       author='Bruno Campos',
       author_email='brunocampos01@gmail.com',
       license='MIT',
