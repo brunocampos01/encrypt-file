@@ -42,7 +42,7 @@ pip install encrypt-file
 
 ## Usage
 - :lock: Encrypt :lock:
-```
+```bash
 encrypt-file \
           --func encrypt \
           --file plain_text.txt \
@@ -50,7 +50,7 @@ encrypt-file \
 ```
 
 - :unlock: Decrypt :unlock:
-```
+```bash
 encrypt-file \
           --func decrypt \
           --file plain_text.txt.enc \
