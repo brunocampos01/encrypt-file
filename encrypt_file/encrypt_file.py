@@ -1,0 +1,112 @@
+#!/usr/bin/python3
+import argparse
+from pyfiglet import Figlet
+import time
+
+from humanfriendly import format_timespan
+import hashlib
+import os
+from binascii import hexlify, unhexlify
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+f = Figlet(font='slant')
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+
+def derive_key(passphrase: str, salt: bytes = None) -> [str, bytes]:
+    if salt is None:
+        salt = os.urandom(8)
+    
+    return hashlib.pbkdf2_hmac(hash_name="sha256",
+                               password=passphrase.encode("utf8"),
+                               salt=salt,
+                               iterations=10000), salt
+
+
+def encrypt(passphrase: str, plaintext: str) -> str:
+    key, salt = derive_key(passphrase)
+    aes = AESGCM(key)
+    iv = os.urandom(12)
+    plaintext = plaintext.encode("utf8")
+    ciphertext = aes.encrypt(iv, plaintext, None)
+    return "%s-%s-%s" % (hexlify(salt).decode("utf8"), hexlify(iv).decode("utf8"), hexlify(ciphertext).decode("utf8"))
+
+
+def decrypt(passphrase: str, ciphertext: str) -> str:
+    salt, iv, ciphertext = map(unhexlify, ciphertext.split("-"))
+    key, _ = derive_key(passphrase, salt)
+    aes = AESGCM(key)
+    plaintext = aes.decrypt(iv, ciphertext, None)
+
+    return plaintext.decode("utf8")
+
+
+def open_file(file_path: str):
+    with open(file_path, 'r') as reader:
+        return str(reader.read())
+
+
+def encrypt_file(file_content, file_path, passphrase):
+    print(f'Encrypting ...')
+
+    with open(file_path + ".enc", 'w') as writer:
+        writer.write(encrypt(passphrase=passphrase, plaintext=file_content))
+
+    return print(f'Encrypted file at {file_path}.enc')
+
+
+def decrypt_file(file_content, file_path, passphrase):
+    print(f'Decrypting ...')
+
+    with open(file_path, 'w') as fo:
+        fo.write(decrypt(passphrase=passphrase, ciphertext=file_content))
+
+    return print(f'File {file_path} decrypted')
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--func',
+                        type=str,
+                        required=True,
+                        help='Function: encrypt or decrypt')
+    parser.add_argument('--file',
+                        type=str,
+                        required=True,
+                        help='File path')
+    parser.add_argument('--password',
+                        type=str,
+                        required=True,
+                        help='Password to encrypt file')
+
+    args = parser.parse_args()
+    func = args.func
+    password = args.password
+    file_path = args.file
+
+    print(f.renderText('encrypt file'))
+    print('Encrypt or decrypt files with ONLY ONE COMAND '
+          '\n----------------------------------------------------------------------')
+    print('PARAMETERS')
+    print(f'func:\t\t{func}')
+    print(f'password:\t{password}')
+    print(f'file_path:\t{file_path}')
+    print()
+
+    if 'encrypt' in func:
+        file = open_file(file_path=file_path)
+        encrypt_file(file_content=file,
+                     file_path=file_path,
+                     passphrase=password)
+
+    elif 'decrypt' in func:
+        encrypted_file = open_file(file_path=file_path)
+        decrypt_file(file_content=encrypted_file,
+                     file_path=file_path,
+                     passphrase=password)
+
+
+if __name__ == '__main__':
+    start = time.time()
+    main()
+    print(f'Execution time: {format_timespan(time.time() - start)}')
