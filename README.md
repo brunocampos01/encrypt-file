@@ -36,7 +36,6 @@ The _encrypt file_ is a **CLI** for encrypting and decrypting files.
 
 
 ## Install
-- pyssas
 ```sh
 pip install encrypt-file
 ```
