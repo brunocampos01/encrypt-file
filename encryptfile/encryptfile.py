@@ -41,27 +41,27 @@ def decrypt(passphrase: str, ciphertext: str) -> str:
     return plaintext.decode("utf8")
 
 
-def open_file(file_path: str):
+def open_file(file_path: str) -> str:
     with open(file_path, 'r') as reader:
         return str(reader.read())
 
 
-def encrypt_file(file_content, file_path, passphrase):
+def encrypt_file(file_content, file_path, passphrase) -> None:
     print(f'Encrypting ...')
 
     with open(file_path + ".enc", 'w') as writer:
         writer.write(encrypt(passphrase=passphrase, plaintext=file_content))
 
-    return print(f'Encrypted file at {file_path}.enc')
+    print(f'Encrypted file at {file_path}.enc')
 
 
-def decrypt_file(file_content, file_path, passphrase):
+def decrypt_file(file_content, file_path, passphrase) -> None:
     print(f'Decrypting ...')
 
     with open(file_path, 'w') as fo:
         fo.write(decrypt(passphrase=passphrase, ciphertext=file_content))
 
-    return print(f'File {file_path} decrypted')
+    print(f'File {file_path} decrypted')
 
 
 def main():
