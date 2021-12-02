@@ -29,11 +29,12 @@ The _encrypt file_ is a **CLI** for encrypting and decrypting files.
 - **Abstraction of cryptographic algorithms**: you don't need to know what goes on behind the scenes in _encrypt file_ (but if you want, just see it on github).
 
 ## Requirements
+This project is tested with:
+
 | Requisite      | Version  |
 |----------------|----------|
 | Python         | 3.6.8    |
-| pip            | 20.0.2   |
-
+| Pip            | 20.0.2   |
 
 ## Install
 ```sh
