@@ -1,5 +1,5 @@
 # :page_with_curl:	_encrypt file_ :lock: 
-[![Python 3](https://img.shields.io/badge/python-3-blue.svg)](https://www.python.org/downloads/release/python-381/)
+[![Python 3](https://img.shields.io/badge/Python-3-blue.svg)](https://www.python.org/downloads/release/python-381/)
 ![License](https://img.shields.io/badge/Code%20License-MIT-blue.svg)
 
 Encrypt or decrypt files with ONLY ONE COMAND
