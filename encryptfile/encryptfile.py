@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 import argparse
-from pyfiglet import Figlet
 import time
-
-from humanfriendly import format_timespan
-import hashlib
 import os
-from binascii import hexlify, unhexlify
+
+import hashlib
+from pyfiglet import Figlet
+from binascii import hexlify
+from binascii import unhexlify
+from humanfriendly import format_timespan
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 f = Figlet(font='slant')
@@ -46,7 +47,7 @@ def open_file(file_path: str) -> str:
         return str(reader.read())
 
 
-def encrypt_file(file_content, file_path, passphrase) -> None:
+def encrypt_file(file_content: str, file_path: str, passphrase: str) -> None:
     print(f'Encrypting ...')
 
     with open(file_path + ".enc", 'w') as writer:
@@ -55,7 +56,7 @@ def encrypt_file(file_content, file_path, passphrase) -> None:
     print(f'Encrypted file at {file_path}.enc')
 
 
-def decrypt_file(file_content, file_path, passphrase) -> None:
+def decrypt_file(file_content: str, file_path: str, passphrase: str) -> None:
     print(f'Decrypting ...')
 
     with open(file_path, 'w') as fo:
@@ -86,13 +87,13 @@ def main():
 
 
     if 'encrypt' in func:
-        file = open_file(file_path=file_path)
+        file = open_file(file_path)
         encrypt_file(file_content=file,
                      file_path=file_path,
                      passphrase=password)
 
     elif 'decrypt' in func:
-        encrypted_file = open_file(file_path=file_path)
+        encrypted_file = open_file(file_path)
         decrypt_file(file_content=encrypted_file,
                      file_path=file_path,
                      passphrase=password)
