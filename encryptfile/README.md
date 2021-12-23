@@ -1,4 +1,4 @@
-# Notes about Create and Test This Project
+# Notes About Create and Test This Project
 
 ## Publishing Module to PyPi
 To upload package to PyPI, I used a tool called [Twine](https://twine.readthedocs.io/en/stable/).
