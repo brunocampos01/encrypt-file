@@ -68,4 +68,4 @@ def decrypt_file(file_content: str, file_path: str, passphrase: str) -> None:
     with open(file_path, 'w') as fo:
         fo.write(decrypted_file)
 
-    print(f'File {file_path} decrypted')
+    print(f'{OKGREEN}File {file_path} decrypted{ENDC}')
