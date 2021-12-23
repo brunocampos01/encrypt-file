@@ -19,8 +19,9 @@ twine check dist/*
 twine upload dist/*
 ```
 
+---
 
-### Execute Tests
+## Execute Tests
 ```bash
 pytest tests -vv
 ```
