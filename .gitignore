@@ -367,3 +367,14 @@ venv.bak/
 
 # VSCode settings
 .vscode/
+
+# pytest
+.pytest_cache/
+
+# tests
+tests/files/plain_text.txt.enc
+tests/files/empty_file.enc
+tests/files/semi_structure_data.xml.enc
+
+# other
+requirements.in
