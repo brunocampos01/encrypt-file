@@ -1,23 +1,23 @@
 #!/usr/bin/python3
-import argparse
-import time
-import os
-
+import binascii
 import hashlib
-from pyfiglet import Figlet
+import sys
+import os
 from binascii import hexlify
 from binascii import unhexlify
-from humanfriendly import format_timespan
+
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
-f = Figlet(font='slant')
-HERE = os.path.abspath(os.path.dirname(__file__))
+# colors
+OKGREEN = '\033[92m'
+WARNING = '\033[93m'
+ENDC = '\033[0m'
 
 
 def derive_key(passphrase: str, salt: bytes = None) -> [str, bytes]:
     if salt is None:
         salt = os.urandom(8)
-    
+
     return hashlib.pbkdf2_hmac(hash_name="sha256",
                                password=passphrase.encode("utf8"),
                                salt=salt,
@@ -34,7 +34,13 @@ def encrypt(passphrase: str, plaintext: str) -> str:
 
 
 def decrypt(passphrase: str, ciphertext: str) -> str:
-    salt, iv, ciphertext = map(unhexlify, ciphertext.split("-"))
+    try:
+        salt, iv, ciphertext = map(unhexlify, ciphertext.split("-"))
+    except binascii.Error:
+        return sys.exit(f'{WARNING}File is not encrypted!{ENDC}')
+    except ValueError:
+        return sys.exit(f'{WARNING}The file is empty!{ENDC}')
+
     key, _ = derive_key(passphrase, salt)
     aes = AESGCM(key)
     plaintext = aes.decrypt(iv, ciphertext, None)
@@ -49,57 +55,17 @@ def open_file(file_path: str) -> str:
 
 def encrypt_file(file_content: str, file_path: str, passphrase: str) -> None:
     print(f'Encrypting ...')
-
+    encrypted_file = encrypt(passphrase=passphrase, plaintext=file_content)
     with open(file_path + ".enc", 'w') as writer:
-        writer.write(encrypt(passphrase=passphrase, plaintext=file_content))
+        writer.write(encrypted_file)
 
-    print(f'Encrypted file at {file_path}.enc')
+    print(f'{OKGREEN}Encrypted file at {file_path}.enc{ENDC}')
 
 
 def decrypt_file(file_content: str, file_path: str, passphrase: str) -> None:
     print(f'Decrypting ...')
-
+    decrypted_file = decrypt(passphrase=passphrase, ciphertext=file_content)
     with open(file_path, 'w') as fo:
-        fo.write(decrypt(passphrase=passphrase, ciphertext=file_content))
+        fo.write(decrypted_file)
 
     print(f'File {file_path} decrypted')
-
-
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--func',
-                        type=str,
-                        required=True,
-                        help='Function: encrypt or decrypt')
-    parser.add_argument('--file',
-                        type=str,
-                        required=True,
-                        help='File path')
-    parser.add_argument('--password',
-                        type=str,
-                        required=True,
-                        help='Password to encrypt file')
-
-    args = parser.parse_args()
-    func = args.func
-    password = args.password
-    file_path = args.file
-
-
-    if 'encrypt' in func:
-        file = open_file(file_path)
-        encrypt_file(file_content=file,
-                     file_path=file_path,
-                     passphrase=password)
-
-    elif 'decrypt' in func:
-        encrypted_file = open_file(file_path)
-        decrypt_file(file_content=encrypted_file,
-                     file_path=file_path,
-                     passphrase=password)
-
-
-if __name__ == '__main__':
-    start = time.time()
-    main()
-    print(f'Execution time: {format_timespan(time.time() - start)}')
