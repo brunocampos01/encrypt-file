@@ -33,10 +33,8 @@ This project is tested with:
 
 | Requisite      | Version  |
 |----------------|----------|
-| Python         | 3.6.8    |
+| Python         | 3.8.10   |
 | Pip            | 21.2.4   |
-
-I recommend using Python [venv](https://github.com/brunocampos01/becoming-a-expert-python#virtual-environment).
 
 ## Install
 ```sh
