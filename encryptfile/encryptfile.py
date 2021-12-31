@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 import binascii
 import hashlib
-import sys
 import os
+import sys
 from binascii import hexlify
 from binascii import unhexlify
 
@@ -27,15 +27,17 @@ def derive_key(passphrase: str, salt: bytes = None) -> [str, bytes]:
 def encrypt(passphrase: str, plaintext: str) -> str:
     key, salt = derive_key(passphrase)
     aes = AESGCM(key)
-    iv = os.urandom(12)
+    iv_random = os.urandom(12)
     plaintext = plaintext.encode("utf8")
-    ciphertext = aes.encrypt(iv, plaintext, None)
-    return "%s-%s-%s" % (hexlify(salt).decode("utf8"), hexlify(iv).decode("utf8"), hexlify(ciphertext).decode("utf8"))
+    ciphertext = aes.encrypt(iv_random, plaintext, None)
+    return "%s-%s-%s" % (hexlify(salt).decode("utf8"),
+                         hexlify(iv_random).decode("utf8"),
+                         hexlify(ciphertext).decode("utf8"))
 
 
 def decrypt(passphrase: str, ciphertext: str) -> str:
     try:
-        salt, iv, ciphertext = map(unhexlify, ciphertext.split("-"))
+        salt, iv_random, ciphertext = map(unhexlify, ciphertext.split("-"))
     except binascii.Error:
         return sys.exit(f'{WARNING}File is not encrypted!{ENDC}')
     except ValueError:
@@ -43,7 +45,7 @@ def decrypt(passphrase: str, ciphertext: str) -> str:
 
     key, _ = derive_key(passphrase, salt)
     aes = AESGCM(key)
-    plaintext = aes.decrypt(iv, ciphertext, None)
+    plaintext = aes.decrypt(iv_random, ciphertext, None)
 
     return plaintext.decode("utf8")
 
@@ -65,7 +67,7 @@ def encrypt_file(file_content: str, file_path: str, passphrase: str) -> None:
 def decrypt_file(file_content: str, file_path: str, passphrase: str) -> None:
     print(f'Decrypting ...')
     decrypted_file = decrypt(passphrase=passphrase, ciphertext=file_content)
-    with open(file_path, 'w') as fo:
-        fo.write(decrypted_file)
+    with open(file_path, 'w') as writer:
+        writer.write(decrypted_file)
 
     print(f'{OKGREEN}File {file_path} decrypted{ENDC}')

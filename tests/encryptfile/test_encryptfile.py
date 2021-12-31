@@ -57,7 +57,8 @@ def test_decrypt_xml_not_encrypted():
 def test_encrypt_plain_text():
     """
     The file is not encrypted.
-    Test the encrypt plain_text.txt. This function return a new file with pattern <ORIGINAL_NAME>.enc
+    Test the encrypt plain_text.txt.
+    This function return a new file with pattern <ORIGINAL_NAME>.enc
     """
     file_path = f'{here}/../files/plain_text.txt'
     password = '123456'

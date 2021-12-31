@@ -1,9 +1,8 @@
 import os
 
+from pip._internal.req import parse_requirements
 from setuptools import find_packages
 from setuptools import setup
-from pip._internal.req import parse_requirements
-
 
 here = os.path.abspath(os.path.dirname(__file__))
 requirements_path = os.path.join(here, 'requirements.txt')
@@ -22,7 +21,7 @@ setup(name='encrypt-file',
       version='2.1',
       packages=find_packages(),
       install_requires=requirements,
-            entry_points={
+      entry_points={
           'console_scripts': ['encrypt-file=encryptfile.__main__:main']
       },
       # metadata to display on PyPI

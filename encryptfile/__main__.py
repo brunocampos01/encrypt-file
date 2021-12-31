@@ -1,13 +1,11 @@
 import argparse
-import os
 import time
-
-from humanfriendly import format_timespan
-from pyfiglet import Figlet
 
 from encryptfile.encryptfile import decrypt_file
 from encryptfile.encryptfile import encrypt_file
 from encryptfile.encryptfile import open_file
+from humanfriendly import format_timespan
+from pyfiglet import Figlet
 
 f = Figlet(font='slant')
 
@@ -33,7 +31,7 @@ def main():
     file_path = args.file
 
     print(f.renderText('encrypt file'))
-    print('Encrypt or decrypt files with ONLY ONE COMAND '
+    print('Encrypt or decrypt files with ONLY ONE COMMAND '
           '\n----------------------------------------------------------------------')
     print('PARAMETERS')
     print(f'func:\t\t{func}')
