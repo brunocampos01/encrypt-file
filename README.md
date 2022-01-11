@@ -1,4 +1,4 @@
-# :page_with_curl:	_encrypt file_ :lock: 
+# :page_with_curl:	_Encrypt File_ :lock: 
 [![Python 3](https://img.shields.io/badge/Python-3-blue.svg)](https://www.python.org/downloads/release/python-381/)
 ![License](https://img.shields.io/badge/Code%20License-MIT-blue.svg)
 
