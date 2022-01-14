@@ -39,15 +39,15 @@ def main():
     print(f'file_path:\t{file_path}')
     print()
 
+    readed_file = open_file(file_path)
+
     if 'encrypt' in func:
-        file = open_file(file_path)
-        encrypt_file(file_content=file,
+        encrypt_file(file_content=readed_file,
                      file_path=file_path,
                      passphrase=password)
 
     elif 'decrypt' in func:
-        encrypted_file = open_file(file_path)
-        decrypt_file(file_content=encrypted_file,
+        decrypt_file(file_content=readed_file,
                      file_path=file_path,
                      passphrase=password)
 
