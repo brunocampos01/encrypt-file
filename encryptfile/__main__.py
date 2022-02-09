@@ -11,7 +11,7 @@ f = Figlet(font='slant')
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Encrypt or decrypt files with ONLY ONE COMAND')
+    parser = argparse.ArgumentParser(description='Encrypt or decrypt files with ONLY ONE COMMAND')
     parser.add_argument('--func',
                         type=str,
                         required=True,
