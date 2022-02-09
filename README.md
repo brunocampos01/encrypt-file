@@ -2,7 +2,7 @@
 [![Python 3](https://img.shields.io/badge/Python-3-blue.svg)](https://www.python.org/downloads/release/python-381/)
 ![License](https://img.shields.io/badge/Code%20License-MIT-blue.svg)
 
-Encrypt or decrypt files with ONLY ONE COMAND
+CLI to encrypt or decrypt files with only one command
 ```bash
                                     __     _____ __   
   ___  ____  ____________  ______  / /_   / __(_) /__ 
@@ -11,7 +11,7 @@ Encrypt or decrypt files with ONLY ONE COMAND
 \___/_/ /_/\___/_/   \__, / .___/\__/  /_/ /_/_/\___/ 
                     /____/_/                          
 
-Encrypt or decrypt files with ONLY ONE COMAND 
+Encrypt or decrypt files with ONLY ONE COMMAND 
 ----------------------------------------------------------------------
 PARAMETERS
 func:		encrypt
