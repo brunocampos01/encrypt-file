@@ -25,7 +25,7 @@ setup(name='encrypt-file',
           'console_scripts': ['encrypt-file=encryptfile.__main__:main']
       },
       # metadata to display on PyPI
-      description='CLI to encrypt or decrypt files with ONLY ONE COMAND',
+      description='CLI to encrypt or decrypt files with ONLY ONE COMMAND',
       long_description=README,
       long_description_content_type='text/markdown',
       keywords='encrypt, decrypt, cli, easy, file',
