@@ -38,7 +38,7 @@ This project is tested with:
 
 ## Install
 ```sh
-pip install encrypt-file
+pip install encrypt-file  --prerelease=allow
 ```
 
 ## Usage
